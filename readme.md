@@ -22,3 +22,5 @@
 
 ## 起動
 `node app.js`
+
+![スクリーンショット](https://github.com/khide1101/GBFRaidCheckerNodeJS/blob/master/screenshot.png)
