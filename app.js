@@ -6,6 +6,7 @@ const raidDatas   = require('./config/raid_datas.js');
 const tweetParser = require('./modules/tweet_parser.js');
 const tweetFilter = require('./modules/tweet_filter.js');
 const copyText    = require('./modules/copy_text.js');
+const sound       = require('./modules/sound.js');
 
 const filterKeys  = Object.keys(raidDatas.switch).filter((key) => raidDatas.switch[key]);
 const filterDatas = filterKeys.map((key) => raidDatas.detail[key]);
@@ -19,6 +20,7 @@ const client   = new Twitter(consumerKey);
 const keywords = [ '参加者募集！', 'I need backup!' ];
 const gbfTrack = keywords.join(',');
 
+
 client.stream('statuses/filter', { track: gbfTrack }, (stream) => {
 
     console.log('Twitter Stream Connect Start!!');
@@ -31,6 +33,7 @@ client.stream('statuses/filter', { track: gbfTrack }, (stream) => {
         if (tweetObj !== null) {
             console.log(tweetObj);
             copyText(tweetObj.id, osPlatform);
+            sound(0.3);
         }
     });
 
