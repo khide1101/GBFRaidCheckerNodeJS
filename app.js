@@ -33,7 +33,7 @@ client.stream('statuses/filter', { track: gbfTrack }, (stream) => {
         if (tweetObj !== null) {
             console.log(tweetObj);
             copyText(tweetObj.id, osPlatform);
-            sound(0.3);
+            sound(0.005);
         }
     });
 
