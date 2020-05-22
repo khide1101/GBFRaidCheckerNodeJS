@@ -4,7 +4,8 @@ module.exports = (tweetObj, filterDatas) => {
 
     const res = filterDatas.some((data) => {
         if (String(tweetObj.lv) === String(data.lv)) {
-            const matchWords = data.match.split(',');
+            const match = data.ja.concat(data.en).join(' ');
+            const matchWords = match.split(',');
             for (let i = 0; i < matchWords.length; i++) {
                 if (tweetObj.name.indexOf(matchWords[i]) >= 0) {
                     return true;
