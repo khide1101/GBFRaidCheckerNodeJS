@@ -25,17 +25,15 @@ const gbfTrack = keywords.join(',');
 const gbfSearch = `(${keywords.join(') OR (')})`
 const idLogs = [];
 const logMax = 1000;
+const APILimitPer = 900; // Rate制限の単位時間(s)
+const APILimitFetch = 420; // Rate制限のFetch回数 (ほんとは450sだけど余裕持って420設定)
 
 const consoleColors = {
     true: raidDatas.consoleColorA || '\u001b[0m',
     false: raidDatas.consoleColorB || '\u001b[0m',
 };
 
-const APILimitPer = 900; // Rate制限の単位時間(s)
-const APILimitFetch = 420; // Rate制限のFetch回数 (ほんとは450sだけど余裕持って420設定)
-
-let _toggle = false;
-let boostMode = false;
+let boostModeFlag = false;
 
 
 console.log('Twitter Stream Connect Start!!');
@@ -47,12 +45,13 @@ console.log('------------------------');
 /* =================================== */
 /* コンソール出力 */
 /* =================================== */
+let _toggle = false;
 const output = (obj, from = '-') => {
     if (obj !== null && idLogs.indexOf(obj.id) === -1) {
         copyText(obj.id, osPlatform);
 
         const { delay, timeStr} = timeParser(obj);
-        console.log(`${boostMode ? '\u001b[31m[boost]' : ''}${consoleColors[_toggle]}{ id: ${obj.id} , get: '${from}', name: "${obj.name}", delay: "${delay}s" }\u001b[0m`);
+        console.log(`${boostModeFlag ? '\u001b[31m[boost]' : ''}${consoleColors[_toggle]}{ id: ${obj.id} , get: '${from}', name: "${obj.name}", delay: "${delay}s" }\u001b[0m`);
         // sound(0.005, osPlatform);
 
         if (isNewOnly) {
@@ -84,7 +83,7 @@ let APILockFlag = false;
 // 1秒毎に監視、3秒間隔でFetch実行、ただしBootModeの時は1秒間隔でFetch実行
 // RateLimitに引っかかりそうな時はロックをかける。一定時間超過でロック解除
 setInterval(() => {
-    if ((boostMode === true || sec % 3 === 0) && APILockFlag === false) {
+    if ((boostModeFlag === true || sec % 3 === 0) && APILockFlag === false) {
         if (fetchCount < APILimitFetch) {
             fetchCount++;
             // console.log(`searchAPI Fetch!(${fetchCount})`);
@@ -118,11 +117,11 @@ setInterval(() => {
  * キー入力によるブーストモードON/OFF
  */
 keypress(() => {
-    if (boostMode === false) {
+    if (boostModeFlag === false) {
         console.log('＊＊＊＊ Boost Start!!!! ＊＊＊＊');
-        boostMode = true;
+        boostModeFlag = true;
     } else {
         console.log('＊＊＊＊ Boost End!!!! ＊＊＊＊');
-        boostMode = false;
+        boostModeFlag = false;
     }
 });
