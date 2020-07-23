@@ -88,7 +88,15 @@ setInterval(() => {
             fetchCount++;
             // console.log(`searchAPI Fetch!(${fetchCount})`);
             client.get('search/tweets', {q: gbfSearch, count: 100, result_type: 'recent', include_entities: false}, (error, tweets, res) => {
-                if(error) throw error;
+                if(error) {
+                    if (error.message === 'Rate Limit exceeded') {
+                        console.log('Rate Limit exceeded respoce. Lock SearchAPI 5min.');
+                        APILockFlag = true;
+                        boostMode = false;
+                        sec = 600;
+                        return;
+                    }
+                }
                 for (let i = tweets.statuses.length - 1; i >= 0; i--) {
                     output(tweetParser(tweets.statuses[i]), 'search');
                 }
