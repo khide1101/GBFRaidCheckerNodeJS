@@ -80,6 +80,15 @@ let sec = 0;
 let fetchCount = 0;
 let APILockFlag = false;
 
+const onError = (msg) => {
+    if (msg === 'Rate limit exceeded') {
+        console.log('Rate Limit exceeded responce. Lock SearchAPI 5min.');
+        APILockFlag = true;
+        boostMode = false;
+        sec = 600;
+    }
+};
+
 // 1秒毎に監視、5秒間隔でFetch実行、ただしBootModeの時は1秒間隔でFetch実行
 // RateLimitに引っかかりそうな時はロックをかける。一定時間超過でロック解除
 setInterval(() => {
@@ -89,23 +98,15 @@ setInterval(() => {
             // console.log(`searchAPI Fetch!(${fetchCount})`);
             client.get('search/tweets', {q: gbfSearch, count: 100, result_type: 'recent', include_entities: false}, (error, tweets, res) => {
                 if(error) {
-                    if (error.message === 'Rate Limit exceeded') {
-                        console.log('Rate Limit exceeded responce. Lock SearchAPI 5min.');
-                        APILockFlag = true;
-                        boostMode = false;
-                        sec = 600;
-                        return;
-                    }
-                }
-                if (tweets.statuses !== undefined) {
-                    for (let i = tweets.statuses.length - 1; i >= 0; i--) {
-                        output(tweetParser(tweets.statuses[i]), 'search');
-                    }
-                } else {
-                    console.log('tweets.statuses is undefiend.');
-                    console.log(tweets);
-                    boostMode = false;
+                    onError(error.message);
                     return;
+                }
+                if (tweets.error) {
+                    onError(tweets.error.message);
+                    return;
+                }
+                for (let i = tweets.statuses.length - 1; i >= 0; i--) {
+                    output(tweetParser(tweets.statuses[i]), 'search');
                 }
             });
         } else {
