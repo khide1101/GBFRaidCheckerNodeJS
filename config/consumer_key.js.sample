@@ -1,6 +1,20 @@
+/*
+ * userOuth: StreamAPI接続に用いる
+ * consumer_key(API_KEY), consumer_secret(API_SECRET), AccessToken, AccessSecret の4つ必須
+ * appOuth: SearchAPI接続に用いる
+ * consumer_key(API_KEY), consumer_secret(API_SECRET)に加えて BearerTokenが必要
+ * BearerTokenは "generate_bearer.js" を用いて生成する。
+ */
 module.exports = {
-    consumer_key: '**********',
-    consumer_secret: '**********',
-    access_token_key: '**********',
-    access_token_secret: '**********'
+    userOuth: {
+        consumer_key: '**********',
+        consumer_secret: '**********',
+        access_token_key: '**********',
+        access_token_secret: '**********',
+    },
+    appOuth: {
+        consumer_key: '**********',
+        consumer_secret: '**********',
+        bearer_token: '**********'
+    }
 }

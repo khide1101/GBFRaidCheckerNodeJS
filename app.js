@@ -19,7 +19,9 @@ const osPlatform  = os.platform();
 /* ----------------------------------------- */
 /* Twitter Stream Connection */
 /* ----------------------------------------- */
-const client   = new Twitter(consumerKey);
+const userOuthClient = new Twitter(consumerKey.userOuth);
+const appOuthClient = new Twitter(consumerKey.appOuth || consumerKey.userOuth);
+
 const keywords = tweetCombo(filterDatas);
 const gbfTrack = keywords.join(',');
 const gbfSearch = `(${keywords.join(') OR (')})`
@@ -66,7 +68,7 @@ const output = (obj, from = '-') => {
 /**
  * StreamAPIからツイート取得
  */
-client.stream('statuses/filter', { track: gbfTrack }, (stream) => {
+userOuthClient.stream('statuses/filter', { track: gbfTrack }, (stream) => {
     stream.on('data', (data) => {
         output(tweetParser(data), 'stream');
     });
@@ -81,8 +83,6 @@ let fetchCount = 0;
 let APILockFlag = false;
 
 const onError = (msg) => {
-    // if (msg === 'Rate limit exceeded') {
-    // }
     console.log('Error responce. Lock SearchAPI 3min.');
     APILockFlag = true;
     boostMode = false;
@@ -96,7 +96,7 @@ setInterval(() => {
         if (fetchCount < APILimitFetch) {
             fetchCount++;
             // console.log(`searchAPI Fetch!(${fetchCount})`);
-            client.get('search/tweets', {q: gbfSearch, count: 100, result_type: 'recent', include_entities: false}, (error, tweets, res) => {
+            appOuthClient.get('search/tweets', {q: gbfSearch, count: 100, result_type: 'recent', include_entities: false}, (error, tweets, res) => {
                 if(error) {
                     onError(error.message);
                     return;
