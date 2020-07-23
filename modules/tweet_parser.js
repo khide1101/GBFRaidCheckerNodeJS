@@ -30,6 +30,9 @@ module.exports = (data) => {
             id: battleID,
             lv: bossLevel,
             name: bossName,
+            timestamp_ms: data.timestamp_ms,
+            created_at: data.created_at,
+            tweetID: data.id
         };
 
     } catch(e) {

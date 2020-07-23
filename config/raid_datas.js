@@ -3,18 +3,19 @@ module.exports = {
     /* 一度表示したIDは再度表示しない */
     newOnly: true,
 
-    consoleColorA: '\u001b[32m',
-    consoleColorB: '',
+    consoleColorA: '\u001b[32m', // Green
+    consoleColorB: '\u001b[33m', // Yellow
 
     /* ------------------------------------------ */
     /* マルチボスごとのトラッキングの有無を設定する */
     /* true で有効 / false で無効 */
     /* ------------------------------------------ */
     switch: {
-        "グランデHL": true,
+        "グランデHL": false,
         "ルシファー": false,
         "ティアマト・マリスHL": false,
         "リヴァイアサン・マリスHL": false,
+        "フロネシスHL": false,
         "アーカーシャHL": true,
         "四大天司HL": false,
         "シヴァHL": false,
@@ -79,11 +80,12 @@ module.exports = {
     /** マルチボス名のマッチングキーワードとLv */
     /* ------------------------------------------ */
     detail: {
+        "アーカーシャHL": { ja: "アーカーシャ", en: "Akasha", lv:"200" },
         "グランデHL": { ja: "グランデ", en: "Grand", lv:"200" },
+        "フロネシスHL": { ja: "フロネシス", en: "Pronesis", lv:"150" },
         "ルシファー": { ja: "ルシファー", en: "Lucilius", lv:"150" },
         "ティアマト・マリスHL": { ja: "ティアマト", en: "Tiamat", lv:"150" },
         "リヴァイアサン・マリスHL": { ja: "リヴァイアサン", en: "Leviathan", lv:"150" },
-        "アーカーシャHL": { ja: "アーカーシャ", en: "Akasha", lv:"200" },
         "四大天司HL": { ja: "四大天司", en: "Primarchs", lv:"" },
         "シヴァHL": { ja: "シヴァ", en: "Shiva", lv:"120" },
         "エウロペHL": { ja: "エウロペ", en:"Europa", lv:"120" },
