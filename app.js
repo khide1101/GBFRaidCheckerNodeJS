@@ -102,10 +102,9 @@ setInterval(() => {
                         output(tweetParser(tweets.statuses[i]), 'search');
                     }
                 } else {
-                    console.log('tweets.statuses is udefiend. Lock SearchAPI 3min.');
-                    APILockFlag = true;
+                    console.log('tweets.statuses is undefiend.');
+                    console.log(tweets);
                     boostMode = false;
-                    sec = 720;
                     return;
                 }
             });
