@@ -97,7 +97,7 @@ setInterval(() => {
                         return;
                     }
                 }
-                if (tweets.statuses !== undefied) {
+                if (tweets.statuses !== undefined) {
                     for (let i = tweets.statuses.length - 1; i >= 0; i--) {
                         output(tweetParser(tweets.statuses[i]), 'search');
                     }
