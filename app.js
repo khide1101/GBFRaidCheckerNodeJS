@@ -81,12 +81,12 @@ let fetchCount = 0;
 let APILockFlag = false;
 
 const onError = (msg) => {
-    if (msg === 'Rate limit exceeded') {
-        console.log('Rate Limit exceeded responce. Lock SearchAPI 5min.');
-        APILockFlag = true;
-        boostMode = false;
-        sec = 600;
-    }
+    // if (msg === 'Rate limit exceeded') {
+    // }
+    console.log('Error responce. Lock SearchAPI 3min.');
+    APILockFlag = true;
+    boostMode = false;
+    sec = 720;
 };
 
 // 1秒毎に監視、5秒間隔でFetch実行、ただしBootModeの時は1秒間隔でFetch実行
