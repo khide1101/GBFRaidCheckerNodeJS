@@ -3,8 +3,8 @@ module.exports = {
     /* 一度表示したIDは再度表示しない */
     newOnly: true,
 
-    consoleColorA: '\u001b[32m', // Green
-    consoleColorB: '\u001b[33m', // Yellow
+    /* 救援がきたら音を鳴らす */
+    isSound: false,
 
     /* ------------------------------------------ */
     /* マルチボスごとのトラッキングの有無を設定する */
@@ -82,7 +82,7 @@ module.exports = {
     detail: {
         "アーカーシャHL": { ja: "アーカーシャ", en: "Akasha", lv:"200" },
         "グランデHL": { ja: "グランデ", en: "Grand", lv:"200" },
-        "フロネシスHL": { ja: "フロネシス", en: "Pronesis", lv:"150" },
+        "フロネシスHL": { ja: "フロネシス", en: "Phronesis", lv:"150" },
         "ルシファー": { ja: "ルシファー", en: "Lucilius", lv:"150" },
         "ティアマト・マリスHL": { ja: "ティアマト", en: "Tiamat", lv:"150" },
         "リヴァイアサン・マリスHL": { ja: "リヴァイアサン", en: "Leviathan", lv:"150" },
