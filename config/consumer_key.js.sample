@@ -6,13 +6,13 @@
  * BearerTokenは "generate_bearer.js" を用いて生成する。
  */
 module.exports = {
-    userOuth: {
+    userAuth: {
         consumer_key: '**********',
         consumer_secret: '**********',
         access_token_key: '**********',
         access_token_secret: '**********',
     },
-    appOuth: {
+    appAuth: {
         consumer_key: '**********',
         consumer_secret: '**********',
         bearer_token: '**********'
