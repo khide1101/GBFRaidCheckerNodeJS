@@ -5,7 +5,7 @@
 - 一度流れたIDは再表示しない = 新品のみでフィルター
 - IDを自動でクリップボードへコピー(音も鳴らせる)
 - SearchAPIとStreamAPIの両方から取得を行うため、StreamAPIのみで取得を行なっている他所のツールより取得が格段に速い
-- ブーストモードを搭載。ブーストモード時はSearchAPIのXHR頻度を爆上げさせるため、SearcAPIを使ってる他所のツールより取得が早い(ケースが多くなる)
+- ブーストモードを搭載。ブーストモード時はSearchAPIのFetch頻度を爆上げさせるため、SearcAPIを使ってる他所のツールより取得が早い(ケースが多くなる)
 
 ## NodeJS準備
 - nodeJS(v10.4.0) インストール
@@ -39,7 +39,7 @@ https://developer.twitter.com/ja/docs/basics/authentication/guides/bearer-tokens
 ![スクリーンショット](https://github.com/khide1101/GBFRaidCheckerNodeJS/blob/master/screenshot.png)
 
 ## ブーストモード
-SearchAPIへのXHR頻度を「5秒に1回」から「1秒に１回」に爆上げする機能。
+SearchAPIへのFetch頻度を「5秒に1回」から「1秒に１回」に爆上げする機能。
 より速い頻度でツイートの取得が行えるようになる。
 
 `Ctrl + B`でブーストモード開始、もう１度押すと終了。
