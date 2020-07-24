@@ -47,6 +47,7 @@ userAuthClient.stream('statuses/filter', { track: gbfTrack }, (stream) => {
 let sec = 0; // 経過秒数
 let fetchCount = 0; // Fetch実行回数
 let APILockFlag = false; // ロックフラグ
+let mostTweetID = 0;
 
 // 1秒毎に監視、5秒間隔でFetch実行、ただしBootModeの時は1秒間隔でFetch実行
 // RateLimitに引っかかりそうな時はロックをかける。一定時間超過でロック解除
@@ -56,10 +57,15 @@ setInterval(() => {
 
             fetchCount++;
             appAuthClient.get('search/tweets', {q: gbfSearch, count: 100, result_type: 'recent', include_entities: false}, (error, tweets, res) => {
+                console.time('fetchedExeTime');
                 if (Console.checkError(error, tweets.error) === false) {
                     // ツイートが正常に取得できた => コンソール出力
-                    for (let i = tweets.statuses.length - 1; i >= 0; i--) {
-                        Console.output(tweetParser(tweets.statuses[i]), 'search', idLogs, isNewOnly, isSound, boostModeFlag);
+                    const filteredTweets = tweets.statuses.filter((v) => v.id > mostTweetID);
+                    if (filteredTweets.length > 0) {
+                        mostTweetID = Math.max.apply(null, filteredTweets.map((v) => v.id));
+                        for (let i = filteredTweets.length - 1; i >= 0; i--) {
+                            Console.output(tweetParser(filteredTweets[i]), 'search', idLogs, isNewOnly, isSound, boostModeFlag);
+                        }
                     }
                 } else {
                     // エラーが返ってきた => 3分間SearchAPIロック
@@ -67,6 +73,7 @@ setInterval(() => {
                     boostModeFlag = false;
                     sec = 720;
                 }
+                console.timeEnd('fetchedExeTime');
             });
 
         } else {

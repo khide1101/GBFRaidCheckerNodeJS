@@ -7,6 +7,7 @@ const timeParser  = require('./time_parser.js');
 
 let _toggle = false;
 
+const idLogsLength = 300; // 保持しておくIDLogsバッファーの最大サイズ
 const consoleColors = {
     true: '\u001b[32m', // Green
     false: '\u001b[33m', // Yellow
@@ -29,7 +30,7 @@ class Console {
             copyText(obj.id, osPlatform);
 
             // コンソール出力
-            const { delay, timeStr} = timeParser(obj);
+            const { delay } = timeParser(obj);
             console.log(`${boostModeFlag ? '\u001b[31m[boost]' : ''}${consoleColors[_toggle]}{ id: ${obj.id} , get: '${getType}', name: "${obj.name}", delay: "${delay}s" }\u001b[0m`);
 
             // 音を鳴らす
@@ -37,7 +38,7 @@ class Console {
    
             if (isNewOnly) {
                 idLogs.unshift(obj.id);
-                if (idLogs.length > 1000) idLogs.pop();
+                if (idLogs.length > idLogsLength) idLogs.pop();
             }
             _toggle = !_toggle;
         }
