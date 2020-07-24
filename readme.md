@@ -50,6 +50,7 @@ SearchAPIへのFetch頻度を「5秒に1回」から「1秒に１回」に爆上
 ## 図解
 [SearchAPI] https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets<br>
 [StreamAPI] https://developer.twitter.com/en/docs/tweets/filter-realtime/api-reference/post-statuses-filter<br>
+<br>
 ![スクリーンショット](https://github.com/khide1101/GBFRaidCheckerNodeJS/blob/master/graph.png)
 
 ## あとがき
