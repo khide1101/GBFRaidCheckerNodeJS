@@ -21,9 +21,9 @@ Twitter開発者アカウントを用意して、App登録。API_KEYを取得す
  (consumerKey, consumerSecretKey, AccessToken, AccessSecretToken)
 
 - consumerKey, consumerSecretKeyからBearerTokenを生成、上記に記入する。
-方法1: ./generate_bearer.jsを実行する(curl必要,Winで動くか動作確認してません)
-方法2: ./generate_bearer.jsに書いてあるのと同じことを別の方法でやる
-方法3: ググって
+-- 方法1: ./generate_bearer.jsを実行する(curl必要,Winで動くか動作確認してません)
+-- 方法2: ./generate_bearer.jsに書いてあるのと同じことを別の方法でやる
+-- 方法3: ググって
 https://developer.twitter.com/ja/docs/basics/authentication/guides/bearer-tokens
 
 - 計5種のキー群を入力できたら準備完了。
