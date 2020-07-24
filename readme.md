@@ -21,10 +21,11 @@ Twitter開発者アカウントを用意して、App登録。API_KEYを取得す
  (consumerKey, consumerSecretKey, AccessToken, AccessSecretToken)
 
 - consumerKey, consumerSecretKeyからBearerTokenを生成、上記に記入する。
--- 方法1: ./generate_bearer.jsを実行する(curl必要,Winで動くか動作確認してません)
--- 方法2: ./generate_bearer.jsに書いてあるのと同じことを別の方法でやる
--- 方法3: ググって
-https://developer.twitter.com/ja/docs/basics/authentication/guides/bearer-tokens
+ - 方法1: ./generate_bearer.jsを実行する(curl必要,Winで動くか動作確認してません)
+ - 方法2: ./generate_bearer.jsに書いてあるのと同じことを別の方法でやる
+ - 方法3: ググって
+
+[参考]https://developer.twitter.com/ja/docs/basics/authentication/guides/bearer-tokens
 
 - 計5種のキー群を入力できたら準備完了。
 
@@ -39,14 +40,16 @@ https://developer.twitter.com/ja/docs/basics/authentication/guides/bearer-tokens
 ![スクリーンショット](https://github.com/khide1101/GBFRaidCheckerNodeJS/blob/master/screenshot.png)
 
 ## ブーストモード
-SearchAPIへのFetch頻度を「5秒に1回」から「1秒に１回」に爆上げする機能。
-より速い頻度でツイートの取得が行えるようになる。
+SearchAPIへのFetch頻度を「5秒に1回」から「1秒に１回」に爆上げする機能。<br>
+より速い頻度でツイートの取得が行えるようになる。<br>
+<br>
+`Ctrl + B`でブーストモード開始、もう１度押すと終了。<br>
+`15分(900秒)で450回アクセスまで`というAPI制限があるため、長い時間ブーストモードにしっぱなしにすると制限に引っかかるので注意。<br>
+引っかかったら一定時間SearchAPIへの接続ができなくなる。<br>
 
-`Ctrl + B`でブーストモード開始、もう１度押すと終了。
-`15分(900秒)で450回アクセスまで`というAPI制限があるため、長い時間ブーストモードにしっぱなしにすると制限に引っかかるので注意。
-引っかかったら一定時間SearchAPIへの接続ができなくなる。
-
-## API接続ロジック
+## 図解
+[SearchAPI] https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets<br>
+[StreamAPI] https://developer.twitter.com/en/docs/tweets/filter-realtime/api-reference/post-statuses-filter<br>
 ![スクリーンショット](https://github.com/khide1101/GBFRaidCheckerNodeJS/blob/master/graph.png)
 
 ## あとがき
