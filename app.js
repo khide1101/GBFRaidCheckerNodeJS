@@ -57,7 +57,7 @@ setInterval(() => {
 
             fetchCount++;
             appAuthClient.get('search/tweets', {q: gbfSearch, count: 100, result_type: 'recent', include_entities: false}, (error, tweets, res) => {
-                console.time('fetchedExeTime');
+                // console.time('fetchedExeTime');
                 if (Console.checkError(error, tweets.error) === false) {
                     // ツイートが正常に取得できた => コンソール出力
                     const filteredTweets = tweets.statuses.filter((v) => v.id > mostTweetID);
@@ -73,7 +73,7 @@ setInterval(() => {
                     boostModeFlag = false;
                     sec = 720;
                 }
-                console.timeEnd('fetchedExeTime');
+                // console.timeEnd('fetchedExeTime');
             });
 
         } else {
