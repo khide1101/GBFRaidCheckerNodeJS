@@ -13,7 +13,7 @@ module.exports = {
      * highSpeed: 平常時2.1秒間隔、ブースト時2.1秒間隔
      * accelerate: 平常時10秒間隔、ブースト時0.5秒間隔
     */
-    boostLevel: 'normal',
+    boostLevel: 'accelerate',
 
     /* ------------------------------------------ */
     /* マルチボスごとのトラッキングの有無を設定する */
@@ -24,8 +24,8 @@ module.exports = {
         "ルシファー": false,
         "ティアマト・マリスHL": false,
         "リヴァイアサン・マリスHL": false,
-        "フロネシスHL": false,
-        "アーカーシャHL": true,
+        "フロネシスHL": true,
+        "アーカーシャHL": false,
         "四大天司HL": false,
         "シヴァHL": false,
         "エウロペHL": false,
