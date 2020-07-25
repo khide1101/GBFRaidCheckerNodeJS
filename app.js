@@ -47,12 +47,25 @@ userAuthClient.stream('statuses/filter', { track: gbfTrack }, (stream) => {
 let sec = 0; // 経過秒数
 let fetchCount = 0; // Fetch実行回数
 let APILockFlag = false; // ロックフラグ
-let mostTweetID = 0;
+let mostTweetID = 0; // 最も新しいTweetIDバッファー
+let continuouslyBoostFetchCount = 0; // ブースト時の連続Fetch回数
+
+/*
+ * ブースト詳細設定
+ * - default: boostOFF時に、SearchAPIを叩く間隔の秒数(s)
+ * - boost: boostON時に、SearchAPIを叩く間隔の秒数(s)
+ * ※ 自前でカスタムする場合、default値 ÷ boost値 の 余りが0になるようにする事。
+ */
+const boostProfile = {
+    normal: { default: 5, boost: 1 },
+    high: { default: 10, boost: 0.5 }
+};
+const boostParam = boostProfile[raidDatas.boostLevel] || boostProfile['normal'];
 
 // 1秒毎に監視、5秒間隔でFetch実行、ただしBootModeの時は1秒間隔でFetch実行
 // RateLimitに引っかかりそうな時はロックをかける。一定時間超過でロック解除
 setInterval(() => {
-    if ((boostModeFlag === true || sec % 5 === 0) && APILockFlag === false) {
+    if ((boostModeFlag === true || sec % boostParam.default === 0) && APILockFlag === false) {
         if (fetchCount < APILimitFetch) {
 
             fetchCount++;
@@ -74,6 +87,20 @@ setInterval(() => {
                     sec = 720;
                 }
                 // console.timeEnd('fetchedExeTime');
+
+                /*
+                 * [安全装置]
+                 * ブースト状態のまま一定回数連続Fetchしたら、自動的にブーストモードをOFFにする
+                */
+                if (boostModeFlag === true) {
+                    continuouslyBoostFetchCount++;
+                    if (continuouslyBoostFetchCount > 60) {
+                        console.log('＊＊＊＊ SafetyLock. Boost END. ＊＊＊＊');
+                        boostModeFlag = false;
+                    }
+                } else {
+                    continuouslyBoostFetchCount = 0;
+                }
             });
 
         } else {
@@ -92,8 +119,8 @@ setInterval(() => {
         APILockFlag = false;
     }
 
-    sec++;
-}, 1000);
+    sec += boostParam.boost;
+}, boostParam.boost * 100);
 
 
 /**
@@ -104,7 +131,7 @@ Console.onKeypress(() => {
         console.log('＊＊＊＊ Boost Start!!!! ＊＊＊＊');
         boostModeFlag = true;
     } else {
-        console.log('＊＊＊＊ Boost End!!!! ＊＊＊＊');
+        console.log('＊＊＊＊ Boost End. ＊＊＊＊');
         boostModeFlag = false;
     }
 });

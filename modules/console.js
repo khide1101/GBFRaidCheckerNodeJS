@@ -51,13 +51,13 @@ class Console {
      */
     static checkError(error, twError) {
         if(error) {
-            console.log('Error responce. Lock SearchAPI 3min.');
-            console.error(error.message); // eslint-disable-line
+            console.log('\u001b[31mCation!! API Error responce. Lock SearchAPI 3min.');
+            // console.error(error.message); // eslint-disable-line
             return true;
         }
         if (twError) {
-            console.log('Error responce. Lock SearchAPI 3min.');
-            console.error(twError.message);
+            console.log('\u001b[31mCation!! API Error responce. Lock SearchAPI 3min.');
+            // console.error(twError.message);
             return true;
         }
         return false;
