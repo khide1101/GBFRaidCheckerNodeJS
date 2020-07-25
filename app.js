@@ -70,9 +70,10 @@ setInterval(() => {
         if (fetchCount < APILimitFetch) {
 
             fetchCount++;
+            // console.time('fetchTime');
             appAuthClient.get('search/tweets', {q: gbfSearch, count: 100, result_type: 'recent', include_entities: false}, (error, tweets, res) => {
+                // console.timeEnd('fetchTime');
 
-                // console.time('fetchedExeTime');
                 if (Console.checkError(error, tweets.error) === false) {
                     // ツイートが正常に取得できた => コンソール出力
                     const filteredTweets = tweets.statuses.filter((v) => v.id > mostTweetID);
