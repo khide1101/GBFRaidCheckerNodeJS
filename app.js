@@ -21,7 +21,7 @@ const isSound     = raidDatas.isSound === true;
 
 const idLogs = [];         // 一度流れたIDを一時的に保持しておくバッファー配列
 const APILimitPer = 900;   // Rate制限の単位時間(s)
-const APILimitFetch = 420; // Rate制限のFetch回数 (ほんとは450sだけど余裕持って420設定)
+const APILimitFetch = 430; // Rate制限のFetch回数 (ほんとは450sだけど余裕持って420設定)
 let boostModeFlag = false; // ブーストモードフラグ
 
 
@@ -51,14 +51,15 @@ let mostTweetID = 0; // 最も新しいTweetIDバッファー
 let continuouslyBoostFetchCount = 0; // ブースト時の連続Fetch回数
 
 /*
- * ブースト詳細設定
+ * ブースト強度設定
  * - default: boostOFF時に、SearchAPIを叩く間隔の秒数(s)
  * - boost: boostON時に、SearchAPIを叩く間隔の秒数(s)
  * ※ 自前でカスタムする場合、default値 ÷ boost値 の 余りが0になるようにする事。
  */
 const boostProfile = {
     normal: { default: 5, boost: 1 },
-    high: { default: 10, boost: 0.5 }
+    highSpeed: { default: 2.1, boost: 2.1 },
+    accelerate: { default: 10, boost: 0.5 }
 };
 const boostParam = boostProfile[raidDatas.boostLevel] || boostProfile['normal'];
 
