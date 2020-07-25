@@ -40,9 +40,9 @@ Twitter開発者アカウントを用意して、App登録。API_KEYを取得す
 ![スクリーンショット](https://github.com/khide1101/GBFRaidCheckerNodeJS/blob/master/screenshot.png)
 
 ## ブーストモード
-SearchAPIへのFetch頻度を「5秒に1回」から「1秒に1回」に爆上げする機能。<br>
+SearchAPIへのFetch頻度をブーストして一定時間だけ爆上げする機能。<br>
 より速い頻度でツイートの取得が行えるようになる。<br>
-ブースト強度の設定も可能。<br>
+強度設定も可能。<br>
 `normal` - 平常時「5秒に1回」/ ブースト時「1秒に1回」<br>
 `highSpeed` - 平常時「2.1秒に1回」/ ブースト時「2.1秒に1回」<br>
 `accelerate` - 平常時「10秒に1回」/ ブースト時「0.5秒に1回」<br>
