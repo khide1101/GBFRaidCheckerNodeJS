@@ -43,12 +43,12 @@ Twitter開発者アカウントを用意して、App登録。API_KEYを取得す
 SearchAPIへのFetch頻度を「5秒に1回」から「1秒に１回」に爆上げする機能。<br>
 より速い頻度でツイートの取得が行えるようになる。<br>
 ブーストLv設定も可能。<br>
-Lv:Normal - 平常時「5秒に1回」/ ブースト時「1秒に１回」<br>
-Lv:High - 平常時「10秒に1回」/ ブースト時「0.5秒に１回」<br>
+`normal` - 平常時「5秒に1回」/ ブースト時「1秒に１回」<br>
+`high` - 平常時「10秒に1回」/ ブースト時「0.5秒に１回」<br>
 <br>
 `Ctrl + B`でブーストモード開始、もう１度押すと終了。<br>
 `15分(900秒)で450回アクセスまで`というAPI制限があるため、長い時間ブーストモードにしっぱなしにすると制限に引っかかるので注意。<br>
-引っかかったら一定時間SearchAPIへの接続ができなくなる。<br>
+APIリミットに引っかかったら、一定時間SearchAPIへの接続ができなくなる。<br>
 
 ## 図解
 [SearchAPI] https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets<br>
