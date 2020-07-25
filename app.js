@@ -71,7 +71,6 @@ setInterval(() => {
 
             fetchCount++;
             appAuthClient.get('search/tweets', {q: gbfSearch, count: 100, result_type: 'recent', include_entities: false}, (error, tweets, res) => {
-                console.log(fetchCount);
 
                 // console.time('fetchedExeTime');
                 if (Console.checkError(error, tweets.error) === false) {
