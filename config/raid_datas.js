@@ -20,6 +20,12 @@ module.exports = {
     /* true で有効 / false で無効 */
     /* ------------------------------------------ */
     switch: {
+        "ウィルナスHL": false,
+        "ワムデュスHL": false,
+        "ガレヲンHL": false,
+        "イーウィヤHL": false,
+        "ル・オーHL": false,
+        "フェディエルHL": false,
         "グランデHL": false,
         "ルシファー": false,
         "ティアマト・マリスHL": false,
@@ -89,6 +95,12 @@ module.exports = {
     /** マルチボス名のマッチングキーワードとLv */
     /* ------------------------------------------ */
     detail: {
+        "ウィルナスHL": { ja: "ウィルナス", en: "Wilnas", lv:"200" },
+        "ワムデュスHL": { ja: "ワムデュス", en: "Wamdus", lv:"200" },
+        "ガレヲンHL": { ja: "ガレヲン", en: "Galleon", lv:"200" },
+        "イーウィヤHL": { ja: "イーウィヤ", en: "Ewiyar", lv:"200" },
+        "ル・オーHL": { ja: "ル・オー", en: "Lu Woh", lv:"200" },
+        "フェディエルHL": { ja: "フェディエル", en: "Fediel", lv:"200" },
         "アーカーシャHL": { ja: "アーカーシャ", en: "Akasha", lv:"200" },
         "グランデHL": { ja: "グランデ", en: "Grand", lv:"200" },
         "フロネシスHL": { ja: "フロネシス", en: "Phronesis", lv:"150" },
