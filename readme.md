@@ -45,11 +45,16 @@ SearchAPIへのFetch頻度をブーストして一定時間だけ爆上げする
 強度設定も可能。<br>
 `normal` - 平常時「5秒に1回」/ ブースト時「1秒に1回」<br>
 `highSpeed` - 平常時「2.1秒に1回」/ ブースト時「2.1秒に1回」<br>
-`accelerate` - 平常時「10秒に1回」/ ブースト時「0.5秒に1回」<br>
+`transam` - 平常時「10秒に1回」/ ブースト時「0.5秒に1回」<br>
 <br>
 `Ctrl + B`でブーストモード開始、もう１度押すと終了。<br>
 `15分(900秒)で450回アクセスまで`というAPI制限があるため、長い時間ブーストモードにしっぱなしにすると制限に引っかかるので注意。<br>
 APIリミットに引っかかったら、一定時間SearchAPIへの接続ができなくなる。<br>
+
+## ツインドライブ
+開発者アカウントを2つ用意し、A/B交互にFetchする機能。
+ブースト強度[`doubleSpeed`](常時1秒間隔)が使えるようになり、
+ブースト強度[`transam`]のブースト可能時間も2倍にすることが可能。
 
 ## 図解
 [SearchAPI] https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets<br>
