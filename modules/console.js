@@ -17,11 +17,10 @@ class Console {
      * @param {*} idLogs 一度流れたIDバッファー配列
      * @param {*} isNewOnly 新品のみ出力する
      * @param {*} isSound 音を鳴らす
-     * @param {*} boostModeFlag ブーストモードON/OFF
      */
-    static output(tweet, getType = '-', idLogs = [], isNewOnly = true, isSound = false) {
-        const obj = this._parseTweet(tweet);
-        if (!(obj !== null && idLogs.indexOf(obj.id) === -1)) return;
+    static output(tweetObject, getType = '-', usedIDs = [], isNewOnly = true, isSound = false) {
+        const obj = this._parseTweet(tweetObject);
+        if (obj === null || usedIDs.indexOf(obj.id) !== -1) return;
 
         // クリップボードにIDコピー
         copyText(obj.id, osPlatform);
@@ -35,8 +34,8 @@ class Console {
 
         // 一度出力したIDは使用済みID配列へ
         if (isNewOnly) {
-            idLogs.unshift(obj.id);
-            if (idLogs.length > idLogsLength) idLogs.pop();
+            usedIDs.unshift(obj.id);
+            if (usedIDs.length > idLogsLength) usedIDs.pop();
         }
 
         _toggle = !_toggle;
@@ -44,19 +43,19 @@ class Console {
 
     /**
      * Tweetオブジェクトをパースする
-     * @param {*} data tweetObject 
+     * @param {*} tweetObject
      */
-    static _parseTweet(data) {
+    static _parseTweet(tweetObject) {
         const regexp = new RegExp("([a-zA-Z0-9]{8}) :(参戦ID|Battle ID)\\n(参加者募集！|I need backup!)\\nLv(l )?([0-9]+) (.+)", "g");
-        const match  = regexp.exec(data.text);
+        const match  = regexp.exec(tweetObject.text);
         if (match === null) return null;
         return {
             id: match[1].trim(),
             lv: match[5].trim(),
             name: match[6].trim(),
-            timestamp_ms: data.timestamp_ms,
-            created_at: data.created_at,
-            tweetID: data.id
+            timestamp_ms: tweetObject.timestamp_ms,
+            created_at: tweetObject.created_at,
+            tweetID: tweetObject.id
         };
     }
 

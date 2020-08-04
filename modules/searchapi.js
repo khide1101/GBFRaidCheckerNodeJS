@@ -5,8 +5,9 @@ const Twitter = require('./twitter.js');
 const API_LIMIT_PER = 900000; // Rate制限の単位時間(ms)
 const API_LIMIT_FETCH = 430;  // Rate制限のFetch回数 (ほんとは450sだけど余裕持って430設定)
 
-let continuouslyBoostFetchCount = 0; // ブースト時の連続Fetch回数
-let mostTweetID = 0; // 最も新しいTweetIDバッファー
+let boostingFetchCount = 0;
+let mostTweetID = 0;
+let apiLockFlag = false;
 
 class SearchAPI {
     /**
@@ -26,7 +27,7 @@ class SearchAPI {
         setInterval(() => {
 
             // 条件クリアでFetch実行、回数超過でAPIロック
-            if (g.searchLockFlag === false) {
+            if (apiLockFlag === false) {
                 if (g.boostModeFlag === true || passedSec % boostParam.default === 0) {
                     if (API_LIMIT_FETCH > fetchCount) {
                         fetchCount++;
@@ -77,7 +78,7 @@ class SearchAPI {
     */
     static lock(_sec = 0) {
         console.log(`SearchAPI Locked. Waiting time ${(API_LIMIT_PER - _sec) / 1000}s.`);
-        g.searchLockFlag = true;
+        apiLockFlag = true;
         g.boostModeFlag = false;
     }
 
@@ -87,13 +88,13 @@ class SearchAPI {
     */
     static safetyLock() {
         if (g.boostModeFlag === true) {
-            continuouslyBoostFetchCount++;
-            if (continuouslyBoostFetchCount > 60) {
+            boostingFetchCount++;
+            if (boostingFetchCount > 60) {
                 console.log('＊＊＊＊ SafetyLock. Boost END. ＊＊＊＊');
                 g.boostModeFlag = false;
             }
         } else {
-            continuouslyBoostFetchCount = 0;
+            boostingFetchCount = 0;
         }
     }
 
@@ -102,10 +103,10 @@ class SearchAPI {
      * ロックを解除し、秒数・Fetch回数を初期化する
      */
     static reset() {
-        if (g.searchLockFlag === true) {
+        if (apiLockFlag === true) {
             console.log('SearchAPI LimitCount Reset.');
         }
-        g.searchLockFlag = false;
+        apiLockFlag = false;
     }
 }
 
