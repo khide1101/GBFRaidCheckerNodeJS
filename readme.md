@@ -52,9 +52,9 @@ SearchAPIへのFetch頻度をブーストして一定時間だけ爆上げする
 APIリミットに引っかかったら、一定時間SearchAPIへの接続ができなくなる。<br>
 
 ## ツインドライブ
-開発者アカウントを2つ用意し、A/B交互にFetchする機能。
-ブースト強度[`doubleSpeed`](常時1秒間隔)が使えるようになり、
-ブースト強度[`transam`]のブースト可能時間も2倍にすることが可能。
+開発者アカウントを2つ用意し、A/B交互にFetchする機能。<br>
+常時1秒間隔のブースト強度[`doubleSpeed`]が使えるようになり、<br>
+[`transam`]のブースト稼働時間も2倍になる。<br>
 
 ## 図解
 [SearchAPI] https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets<br>
