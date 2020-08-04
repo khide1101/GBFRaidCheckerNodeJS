@@ -13,7 +13,7 @@ module.exports = {
      * highSpeed: 平常時2.1秒間隔、ブースト時2.1秒間隔
      * doubleSpeed: 平常時1.1秒間隔、ブースト時1.1秒間隔 (ツインドライブ限定)
      * transam: 平常時10秒間隔、ブースト時0.5秒間隔
-     * transamBoost: 平常時9秒間隔、ブースト時0.3秒間隔 (ツインドライブ限定/動作未確認)
+     * transamBurst: 平常時9秒間隔、ブースト時0.3秒間隔 (ツインドライブ限定/動作未確認)
     */
     boostLevel: 'highSpeed',
 

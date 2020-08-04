@@ -22,7 +22,7 @@ const boostProfile = {
         default: 10000,
         boost: 500
     },
-    transamBoost: {
+    transamBurst: {
         default: 9000,
         boost: 300
     }
