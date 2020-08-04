@@ -9,13 +9,12 @@ const boostProfile = require('./config/boost_profile.js');
 
 /* Client */
 const userAuthClient = Twitter.createClient(consumerKey.userAuth);
-const appAuthClient1 = Twitter.createClient(consumerKey.appAuth['primary']);
-const appAuthClient2 = Twitter.createClient(consumerKey.appAuth['secondary']);
+const appAuthClient1 = Twitter.createClient(consumerKey.appAuth.primary);
+const appAuthClient2 = Twitter.createClient(consumerKey.appAuth.secondary);
 
 /* Keyword */
 const { streamKeyword, searchKeyword, filterKeys } = Keyword.create(raidDatas);
 
-/** グローバルFlag */
 global.boostModeFlag  = false; // BoostMode 有効フラグ
 global.searchLockFlag = false; // SearchAPI ロックフラグ
 global.twinDriveFlag  = false; // TwinDriveMode 有効フラグ

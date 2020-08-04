@@ -1,20 +1,30 @@
-/*
- * userOuth: StreamAPI接続に用いる
- * consumer_key(API_KEY), consumer_secret(API_SECRET), AccessToken, AccessSecret の4つ必須
- * appOuth: SearchAPI接続に用いる
- * consumer_key(API_KEY), consumer_secret(API_SECRET)に加えて BearerTokenが必要
- * BearerTokenは "generate_bearer.js" を用いて生成する。
- */
 module.exports = {
+
+    /** StreamAPI接続に用いる鍵群 */
+    /** TwitterDevからキーを4つ取ってくる */
     userAuth: {
         consumer_key: '**********',
         consumer_secret: '**********',
         access_token_key: '**********',
         access_token_secret: '**********',
     },
+
+    /** SearchAPI接続に用いる鍵群 */
+    /** BearerTokenは "generate_bearer.js" を用いて生成する。 */
+    /** [必須] primaryに必要事項を記述する。 */
+    /**  userAuth と appAuth.primary は同一アカウントの鍵でOK */
+    /** [任意] さらに別アカウントがある場合、secondaryに必要事項を記述する。 */
+    /**  primary/secondary それぞれで接続が成功したら、ツインドライブモードが有効になる. */
     appAuth: {
-        consumer_key: '**********',
-        consumer_secret: '**********',
-        bearer_token: '**********'
+        primary: {
+            consumer_key: '**********',
+            consumer_secret: '**********',
+            bearer_token: '**********',
+        },
+        secondary: {
+            consumer_key: '**********',
+            consumer_secret: '**********',
+            bearer_token: '**********',
+        }
     }
 }
