@@ -53,8 +53,8 @@ APIリミットに引っかかったら、一定時間SearchAPIへの接続が�
 
 ## ツインドライブ
 開発者アカウントを2つ用意し、A/B交互にFetchする機能。<br>
-常時1秒間隔のブースト強度[`doubleSpeed`]が使えるようになり、<br>
-[`transam`]のブースト稼働時間も2倍になる。<br>
+全てのブースト稼働時間が2倍になり、新たに以下のプロファイルも選択可能になる。<br>
+`doubleSpeed` - 平常時「1秒に1回」/ ブースト時「1秒に1回」<br>
 
 ## 図解
 [SearchAPI] https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets<br>
