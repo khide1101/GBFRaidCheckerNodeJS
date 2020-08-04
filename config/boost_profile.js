@@ -21,6 +21,10 @@ const boostProfile = {
     transam: {
         default: 10000,
         boost: 500
+    },
+    transamBoost: {
+        default: 9000,
+        boost: 300
     }
 };
 

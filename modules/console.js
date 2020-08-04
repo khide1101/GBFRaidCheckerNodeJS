@@ -12,9 +12,9 @@ const usedIDMaxLength = 300;
 class Console {
     /**
      * コンソールに救援情報を出力する
-     * @param {*} obj
+     * @param {*} tweetObject
      * @param {*} getType stream or search
-     * @param {*} idLogs 一度流れたIDバッファー配列
+     * @param {*} usedIDs 一度流れたIDバッファー配列
      * @param {*} isNewOnly 新品のみ出力する
      * @param {*} isSound 音を鳴らす
      */
@@ -60,8 +60,7 @@ class Console {
     }
 
     /**
-     * キー入力を監視し'Ctrl + B'を検知したらコールバックを返す
-     * @param {*} callback 
+     * キー入力を監視し'Ctrl + B'を検知したらブーストフラグをON/OFFする
      */
     static initKeyPressEvent() {
         this._onKeypress(() => {
@@ -125,10 +124,6 @@ class Console {
         console.log(aa);
     }
 }
-
-/*
-
-*/
 
 // 出力に交互に色をつける
 let _toggle = false;
