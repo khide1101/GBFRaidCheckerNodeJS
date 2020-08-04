@@ -11,15 +11,17 @@ module.exports = {
      * [normal, high]
      * normal: 平常時5秒間隔、ブースト時1秒間隔
      * highSpeed: 平常時2.1秒間隔、ブースト時2.1秒間隔
-     * accelerate: 平常時10秒間隔、ブースト時0.5秒間隔
+     * doubleSpeed: 平常時1.1秒間隔、ブースト時1.1秒間隔 (ツインドライブ限定)
+     * transam: 平常時10秒間隔、ブースト時0.5秒間隔
     */
-    boostLevel: 'accelerate',
+    boostLevel: 'highSpeed',
 
     /* ------------------------------------------ */
     /* マルチボスごとのトラッキングの有無を設定する */
     /* true で有効 / false で無効 */
     /* ------------------------------------------ */
     switch: {
+        "アーカーシャHL": true,
         "ウィルナスHL": false,
         "ワムデュスHL": false,
         "ガレヲンHL": false,
@@ -30,8 +32,7 @@ module.exports = {
         "ルシファー": false,
         "ティアマト・マリスHL": false,
         "リヴァイアサン・マリスHL": false,
-        "フロネシスHL": true,
-        "アーカーシャHL": false,
+        "フロネシスHL": false,
         "四大天司HL": false,
         "シヴァHL": false,
         "エウロペHL": false,

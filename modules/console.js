@@ -7,7 +7,7 @@ const copyText    = require('./copy_text.js');
 const sound       = require('./sound.js');
 
 // 使用済みID配列バッファー 最大保持サイズ
-const idLogsLength = 300;
+const usedIDMaxLength = 300;
 
 class Console {
     /**
@@ -35,7 +35,7 @@ class Console {
         // 一度出力したIDは使用済みID配列へ
         if (isNewOnly) {
             usedIDs.unshift(obj.id);
-            if (usedIDs.length > idLogsLength) usedIDs.pop();
+            if (usedIDs.length > usedIDMaxLength) usedIDs.pop();
         }
 
         _toggle = !_toggle;
@@ -115,7 +115,20 @@ class Console {
     
         return { delay };
     }
+
+    static showTwinDriveAA() {
+        const aa =  "---------------------------------------------\n" +
+                    "   ___ _ _ _ _ _  _ ___  ____ _ _  _ ____ \n" +
+                    "    |  | | | | |\ | |  \ |__/ | |  | |___ \n" +
+                    "    |  |_|_| | | \| |__/ |  \ |  \/  |___ \n" +
+                    "_____________________________________________\n";
+        console.log(aa);
+    }
 }
+
+/*
+
+*/
 
 // 出力に交互に色をつける
 let _toggle = false;

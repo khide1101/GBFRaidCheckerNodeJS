@@ -18,7 +18,7 @@ class Twitter {
     static testVerifyClients(client1, client2, client3) {
         const promise1 = this.testVerifyClient(client1);
         const promise2 = this.testVerifyClient(client2);
-        const promise3 = this.testVerifyClient(client3);
+        const promise3 = client2.options.consumer_key !== client3.options.consumer_key ? this.testVerifyClient(client3) : null;
         return Promise.all([ promise1, promise2, promise3 ]);
     }
 
@@ -71,15 +71,13 @@ class Twitter {
         });
     }
 
-    static _checkError(error, twError) {
+    static _checkError(error, tweetsError) {
         if(error) {
-            console.log('\u001b[31mCation!! API Error responce. Lock SearchAPI 3min.');
-            // console.error(error.message); // eslint-disable-line
+            console.log('\u001b[31mCation!! API Error responce. Lock SearchAPI 3min.\u001b[0m');
             return true;
         }
-        if (twError) {
-            console.log('\u001b[31mCation!! API Error responce. Lock SearchAPI 3min.');
-            // console.error(twError.message);
+        if (tweetsError) {
+            console.log('\u001b[31mCation!! API Error responce. Lock SearchAPI 3min.\u001b[0m');
             return true;
         }
         return false;

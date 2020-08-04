@@ -14,7 +14,11 @@ const boostProfile = {
         default: 2100,
         boost: 2100
     },
-    accelerate: {
+    doubleSpeed: {
+        default: 1050,
+        boost: 1050
+    },
+    transam: {
         default: 10000,
         boost: 500
     }
