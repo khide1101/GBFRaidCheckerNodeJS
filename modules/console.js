@@ -1,17 +1,13 @@
+const g = global;
+
 const keypress    = require('keypress');
 const os          = require('os');
 const osPlatform  = os.platform();
 const copyText    = require('./copy_text.js');
 const sound       = require('./sound.js');
-const timeParser  = require('./time_parser.js');
 
-let _toggle = false;
-
-const idLogsLength = 300; // 保持しておくIDLogsバッファーの最大サイズ
-const consoleColors = {
-    true: '\u001b[32m', // Green
-    false: '\u001b[33m', // Yellow
-};
+// 使用済みID配列バッファー 最大保持サイズ
+const idLogsLength = 300;
 
 class Console {
     /**
@@ -23,51 +19,64 @@ class Console {
      * @param {*} isSound 音を鳴らす
      * @param {*} boostModeFlag ブーストモードON/OFF
      */
-    static output(obj, getType = '-', idLogs = [], isNewOnly = true, isSound = false, boostModeFlag = false) {
-        if (obj !== null && idLogs.indexOf(obj.id) === -1) {
+    static output(tweet, getType = '-', idLogs = [], isNewOnly = true, isSound = false) {
+        const obj = this._parseTweet(tweet);
+        if (!(obj !== null && idLogs.indexOf(obj.id) === -1)) return;
 
-            // クリップボードにIDコピー
-            copyText(obj.id, osPlatform);
+        // クリップボードにIDコピー
+        copyText(obj.id, osPlatform);
 
-            // コンソール出力
-            const { delay } = timeParser(obj);
-            console.log(`${boostModeFlag ? '\u001b[31m[boost]' : ''}${consoleColors[_toggle]}{ id: ${obj.id} , get: '${getType}', name: "${obj.name}", delay: "${delay}s" }\u001b[0m`);
+        // コンソール出力
+        const { delay } = this._parseTime(obj);
+        console.log(`${g.boostModeFlag ? '\u001b[31m[boost]' : ''}${consoleColors[_toggle]}{ id: ${obj.id} , get: '${getType}', name: "${obj.name}", delay: "${delay}s" }\u001b[0m`);
 
-            // 音を鳴らす
-            if (isSound) sound(0.005, osPlatform);
-   
-            if (isNewOnly) {
-                idLogs.unshift(obj.id);
-                if (idLogs.length > idLogsLength) idLogs.pop();
-            }
-            _toggle = !_toggle;
+        // 音を鳴らす
+        if (isSound) sound(0.005, osPlatform);
+
+        // 一度出力したIDは使用済みID配列へ
+        if (isNewOnly) {
+            idLogs.unshift(obj.id);
+            if (idLogs.length > idLogsLength) idLogs.pop();
         }
+
+        _toggle = !_toggle;
     }
 
     /**
-     * エラー判別 / エラー時にはtrueを返す
-     * @param {*} error 
-     * @param {*} twError 
+     * Tweetオブジェクトをパースする
+     * @param {*} data tweetObject 
      */
-    static checkError(error, twError) {
-        if(error) {
-            console.log('\u001b[31mCation!! API Error responce. Lock SearchAPI 3min.');
-            // console.error(error.message); // eslint-disable-line
-            return true;
-        }
-        if (twError) {
-            console.log('\u001b[31mCation!! API Error responce. Lock SearchAPI 3min.');
-            // console.error(twError.message);
-            return true;
-        }
-        return false;
+    static _parseTweet(data) {
+        const regexp = new RegExp("([a-zA-Z0-9]{8}) :(参戦ID|Battle ID)\\n(参加者募集！|I need backup!)\\nLv(l )?([0-9]+) (.+)", "g");
+        const match  = regexp.exec(data.text);
+        if (match === null) return null;
+        return {
+            id: match[1].trim(),
+            lv: match[5].trim(),
+            name: match[6].trim(),
+            timestamp_ms: data.timestamp_ms,
+            created_at: data.created_at,
+            tweetID: data.id
+        };
     }
 
     /**
      * キー入力を監視し'Ctrl + B'を検知したらコールバックを返す
      * @param {*} callback 
      */
-    static onKeypress(callback) {
+    static initKeyPressEvent() {
+        this._onKeypress(() => {
+            if (g.boostModeFlag === false) {
+                console.log('＊＊＊＊ Boost Start!!!! ＊＊＊＊');
+                g.boostModeFlag = true;
+            } else {
+                console.log('＊＊＊＊ Boost End. ＊＊＊＊');
+                g.boostModeFlag = false;
+            }
+        });
+    }
+
+    static _onKeypress(callback) {
         keypress(process.stdin);
         process.stdin.on('keypress', (ch, key) => {
             if (key && key.ctrl && key.name == 'b') {
@@ -81,6 +90,39 @@ class Console {
         process.stdin.setRawMode(true);
         process.stdin.resume();
     }
+
+    /**
+     * TweetObjectから時間に関する計算をして返す
+     * @param {*} obj 
+     */
+    static _parseTime(obj) {
+        const now = new Date();
+    
+        let delay = '';
+        // let timeStr = '';
+    
+        if (obj.timestamp_ms) {
+            const tweetTime = parseInt(obj.timestamp_ms, 10);
+            delay = (now.getTime() - tweetTime) / 1000;
+            // const d = new Date(tweetTime);
+            // timeStr = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()} [遅延：${delay}s]`;
+        }
+    
+        if (obj.created_at) {
+            const d = new Date(obj.created_at);
+            delay = (now.getTime() - d.getTime()) / 1000;
+            // timeStr = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()} [遅延：${delay}s]`;
+        }
+    
+        return { delay };
+    }
 }
+
+// 出力に交互に色をつける
+let _toggle = false;
+const consoleColors = {
+    true: '\u001b[32m',  // 偶数行を緑色に
+    false: '\u001b[33m', // 機数行を黄色に
+};
 
 module.exports = Console;
