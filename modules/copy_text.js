@@ -6,6 +6,13 @@ module.exports = (text, osName) => {
         proc.stdin.write(text);
         proc.stdin.end();
     }
+    
+    // Linux
+    if (osName === 'linux') {
+        const proc = require('child_process').spawn('clip.exe');
+        proc.stdin.write(text);
+        proc.stdin.end();
+    }
 
     // Mac
     if (osName === 'darwin') {
